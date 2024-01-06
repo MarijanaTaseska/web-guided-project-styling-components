@@ -2,6 +2,28 @@ import React, { useState, useEffect } from 'react'
 import { BASE_URL, API_KEY } from '../constants'
 import axios from 'axios'
 
+import styled, {keyframes} from 'styled-components'
+
+const kf = keyframes`
+100%{
+  opacity: 1;
+  transform: scale(1) rotateZ(0);
+}
+`
+const StyleDetails = styled.div`
+opacity:0;
+transform: scale(2) rotateZ(180deg);
+animation: ${kf} 0.5s ease-in-out forwards;
+
+background-color: ${pr => pr.theme.secondaryColor};
+p{
+  color:${pr =>pr.theme.tertiaryColor};
+}
+h2{
+  color: ${pr => pr.theme.primaryColor};
+}
+`
+
 export default function Details(props) {
   const { friendId, close } = props
   const [details, setDetails] = useState(null)
@@ -13,7 +35,7 @@ export default function Details(props) {
   }, [friendId])
 
   return (
-    <div className='container'>
+    <StyleDetails className='container'>
       <h2>Details:</h2>
       {
         details &&
@@ -29,6 +51,6 @@ export default function Details(props) {
         </>
       }
       <button onClick={close}>Close</button>
-    </div>
+    </StyleDetails>
   )
 }
